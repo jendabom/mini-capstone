@@ -1,18 +1,22 @@
 require 'unirest'
+require 'tty-table'
 
-# response = Unirest.get("localhost:3000/product")
-# product = response.body
+response = Unirest.get("localhost:3000/product")
+product = response.body
 
 # p "Name: #{product['name']}"
 # p "Price: #{product['price']}"
 # p "Description: #{product['description']}"
 
-all_response = Unirest.get("localhost:3000/all_products")
-products = all_response.body
+table = TTY::Table.new ['Name','Price', 'Description'], [["#{product['name']}", "#{product['price']}", "#{product['description']}"]]
+table.render(:basic)
 
-products.each do |product|
-  p "Name: #{product['name']}"
-  p "Price: #{product['price']}"
-  p "Description: #{product['description']}"
-  p "-" * 30
-end
+# all_response = Unirest.get("localhost:3000/all_products")
+# products = all_response.body
+
+# products.each do |product|
+#   p "Name: #{product['name']}"
+#   p "Price: #{product['price']}"
+#   p "Description: #{product['description']}"
+#   p "-" * 30
+# end
