@@ -4,6 +4,6 @@ Rails.application.routes.draw do
     get '/products/:id' => 'products#show'
     post '/products' => 'products#create'
     patch '/products/:id' => 'products#update'
-    delete '/prducts/:id' => 'products#destroy' 
+    delete '/products/:id' => 'products#destroy' 
   end
 end

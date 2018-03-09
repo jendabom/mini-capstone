@@ -8,6 +8,7 @@ p "[1] See all products"
 p "[2] See one product"
 p "[3] Add a product"
 p "[4] Update a product"
+p "[5] Delete a product"
 user_input = gets.chomp
 
 # show a specified product
@@ -66,17 +67,17 @@ elsif user_input == "4"
   p "[2] price"
   p "[3] desciption"
   p "[4] all"
-  user_input = gets.chomp
+  user_input2 = gets.chomp
 
-  if user_input == "1"
+  if user_input2 == "1"
     p "Please enter the new product name: (currently: #{product["name"]})"
     input_name = gets.chomp
     response = Unirest.patch("#{base_url}/products/#{input_id}", parameters: {input_name: input_name, input_price: product['price'], input_description: product['description']})
-  elsif user_input == "2"
+  elsif user_input2 == "2"
     p "Please enter the price: (currently: #{product["price"]})"
     input_price = gets.chomp.to_i
     response = Unirest.patch("#{base_url}/products/#{input_id}", parameters: {input_name: product['name'], input_price: input_price, input_description: product['description']})
-  elsif user_input == "3"
+  elsif user_input2 == "3"
     p "Please enter a description: (currently: #{product["description"]})"
     input_description = gets.chomp
     response = Unirest.patch("#{base_url}/products/#{input_id}", parameters: {input_name: product['name'], input_price: product['price'], input_description: input_description})
@@ -89,5 +90,17 @@ elsif user_input == "4"
     input_description = gets.chomp
 
     response = Unirest.patch("#{base_url}/products/#{input_id}", parameters: {input_name: input_name, input_price: input_price, input_description: input_description})
+  end
+
+elsif user_input == "5"
+  system "clear"
+  p "What product would you like to delete?"
+  input_id = gets.chomp.to_i
+  response = Unirest.get("#{base_url}/products/#{input_id}")
+  product = response.body
+  p "Confirm deletion (y/n)"
+  confirmation = gets.chomp
+  if confirmation == "y"
+    response = Unirest.delete("#{base_url}/products/#{input_id}")
   end
 end

@@ -34,7 +34,10 @@ class V1::ProductsController < ApplicationController
   end
 
   def destroy
-
+    id = params[:id]
+    product = Product.find(id)
+    product.destroy
+    render json: {message: "The product with id #{id} has been deleted."}
   end
 
 end
