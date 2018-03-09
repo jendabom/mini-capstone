@@ -10,7 +10,10 @@ p "[3] Add a product"
 user_input = gets.chomp
 
 if user_input == "2"
-  response = Unirest.get("#{base_url}/products")
+  system "clear"
+  p "What product would you like to see?"
+  input_id = gets.chomp
+  response = Unirest.get("#{base_url}/products/#{input_id}")
   product = response.body
 
   p "Name: #{product['name']}"
@@ -18,7 +21,7 @@ if user_input == "2"
   p "Description: #{product['description']}"
 
 elsif user_input == "1"
-
+  system "clear"
   all_response = Unirest.get("#{base_url}/products")
   products = all_response.body
 
@@ -30,6 +33,7 @@ elsif user_input == "1"
   end
 
 elsif user_input == "3"
+  system "clear"
   p "Please enter the new product name:"
   input_name = gets.chomp
   p "Please enter the price"
