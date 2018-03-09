@@ -19,7 +19,7 @@ if user_input == "2"
 # table = TTY::Table.new ['Name','Price', 'Description'], [["#{product['name']}", "#{product['price']}", "#{product['description']}"]]
 # table.render(:basic)
 
-elsif user_input == "1"
+elsif user_input == "1exti"
 
   all_response = Unirest.get("#{base_url}/all_products")
   products = all_response.body

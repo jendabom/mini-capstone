@@ -1,6 +1,7 @@
 class V1::ProductsController < ApplicationController
   def one_product
-    product = Product.first
+    id = params["id"].to_i
+    product = Product.find(id)
     render json: product.as_json
   end
 
