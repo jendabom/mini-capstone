@@ -6,22 +6,20 @@ base_url = "localhost:3000/v1"
 p "Please select what you would like to see:"
 p "[1] See all products"
 p "[2] See one product"
+p "[3] Add a product"
 user_input = gets.chomp
 
 if user_input == "2"
-  response = Unirest.get("#{base_url}/product")
+  response = Unirest.get("#{base_url}/products")
   product = response.body
 
   p "Name: #{product['name']}"
   p "Price: #{product['price']}"
   p "Description: #{product['description']}"
 
-# table = TTY::Table.new ['Name','Price', 'Description'], [["#{product['name']}", "#{product['price']}", "#{product['description']}"]]
-# table.render(:basic)
+elsif user_input == "1"
 
-elsif user_input == "1exti"
-
-  all_response = Unirest.get("#{base_url}/all_products")
+  all_response = Unirest.get("#{base_url}/products")
   products = all_response.body
 
   products.each do |product|
@@ -30,4 +28,14 @@ elsif user_input == "1exti"
     p "Description: #{product['description']}"
     p "-" * 30
   end
+
+elsif user_input == "3"
+  p "Please enter the new product name:"
+  input_name = gets.chomp
+  p "Please enter the price"
+  input_price = gets.chomp.to_i
+  p "Please enter a description"
+  input_description = gets.chomp
+
+  response = Unirest.post("#{base_url}/products", parameters: {input_name: input_name, input_price: input_price, input_description: input_description})
 end
