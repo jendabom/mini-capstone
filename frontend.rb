@@ -102,5 +102,7 @@ elsif user_input == "5"
   confirmation = gets.chomp
   if confirmation == "y"
     response = Unirest.delete("#{base_url}/products/#{input_id}")
+    p "The product was deleted."
   end
+
 end
