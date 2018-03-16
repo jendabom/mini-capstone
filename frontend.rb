@@ -50,6 +50,8 @@ elsif user_input == "3"
 
   response = Unirest.post("#{base_url}/products", parameters: {input_name: input_name, input_price: input_price, input_description: input_description})
 
+  p response.body
+
 elsif user_input == "4"
   system "clear"
   p "What product would you like to see?"
@@ -65,7 +67,7 @@ elsif user_input == "4"
   p "What would you like to update?"
   p "[1] name"
   p "[2] price"
-  p "[3] desciption"
+  p "[3] description"
   p "[4] all"
   user_input2 = gets.chomp
 
@@ -73,14 +75,17 @@ elsif user_input == "4"
     p "Please enter the new product name: (currently: #{product["name"]})"
     input_name = gets.chomp
     response = Unirest.patch("#{base_url}/products/#{input_id}", parameters: {input_name: input_name, input_price: product['price'], input_description: product['description']})
+    p response.body
   elsif user_input2 == "2"
     p "Please enter the price: (currently: #{product["price"]})"
     input_price = gets.chomp.to_i
     response = Unirest.patch("#{base_url}/products/#{input_id}", parameters: {input_name: product['name'], input_price: input_price, input_description: product['description']})
+    p response.body
   elsif user_input2 == "3"
     p "Please enter a description: (currently: #{product["description"]})"
     input_description = gets.chomp
     response = Unirest.patch("#{base_url}/products/#{input_id}", parameters: {input_name: product['name'], input_price: product['price'], input_description: input_description})
+    p response.body
   else
     p "Please enter the new product name: (currently: #{product["name"]})"
     input_name = gets.chomp
@@ -90,6 +95,7 @@ elsif user_input == "4"
     input_description = gets.chomp
 
     response = Unirest.patch("#{base_url}/products/#{input_id}", parameters: {input_name: input_name, input_price: input_price, input_description: input_description})
+    p response.body
   end
 
 elsif user_input == "5"

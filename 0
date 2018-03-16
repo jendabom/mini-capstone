@@ -1,0 +1,2 @@
+      invoke  active_record
+      create    db/migrate/20180313233250_add_quantity_to_products.rb

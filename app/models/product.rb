@@ -1,13 +1,19 @@
 class Product < ApplicationRecord
+  validates :name, presence: true 
+  validates :name, length: { maximum: 30}
+  validates :price, presence: true 
+  validates :price, numericality: true
+  validates :description, length: { minimum: 10 }
+
   def as_json
     {
       id: id,
       name: name,
       price: price,
-      image_url: image_url,
       description: description,
       discounted: is_discounted?, 
-      total: total
+      total: total,
+      supplier: supplier.as_json
     }
   end
 
@@ -22,5 +28,9 @@ class Product < ApplicationRecord
   def total
     sum = price + tax
     sum.round(2)
+  end
+
+  def supplier
+    Supplier.find_by(id: supplier_id)
   end
 end

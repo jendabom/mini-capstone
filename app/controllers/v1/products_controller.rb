@@ -1,6 +1,7 @@
 class V1::ProductsController < ApplicationController
   def index
-    products = Product.all
+    search_term = params[:search]
+    products = Product.order(id: :asc).where("name LIKE ?", "%#{search_term}%")
     render json: products.as_json
   end
 
@@ -9,10 +10,12 @@ class V1::ProductsController < ApplicationController
       name: params[:input_name], 
       price: params[:input_price], 
       description: params[:input_description]
-      )
-
-    product.save
-    render json: product.as_json
+    )
+    if product.save
+      render json: product.as_json
+    else 
+      render json: { errors: product.errors.full_messages }
+    end
   end
 
   def show
@@ -29,8 +32,11 @@ class V1::ProductsController < ApplicationController
       price: params[:input_price], 
       description: params[:input_description]
       )
-
-    render json: product.as_json
+    if product.save
+      render json: product.as_json
+    else 
+      render json: { errors: product.errors.full_messages }
+    end
   end
 
   def destroy
