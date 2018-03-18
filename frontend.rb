@@ -1,7 +1,8 @@
 require 'unirest'
-require 'tty-table'
+require 'tty-prompt'
 
 base_url = "localhost:3000/v1"
+prompt = TTY::Prompt.new
 
 p "Please select what you would like to see:"
 p "[1] See all products"
@@ -9,6 +10,7 @@ p "[2] See one product"
 p "[3] Add a product"
 p "[4] Update a product"
 p "[5] Delete a product"
+p "[6] Add a user"
 user_input = gets.chomp
 
 # show a specified product
@@ -100,8 +102,7 @@ elsif user_input == "4"
 
 elsif user_input == "5"
   system "clear"
-  p "What product would you like to delete?"
-  input_id = gets.chomp.to_i
+  input_id = prompt.ask("What product would you like to delete?").to_i
   response = Unirest.get("#{base_url}/products/#{input_id}")
   product = response.body
   p "Confirm deletion (y/n)"
@@ -110,5 +111,14 @@ elsif user_input == "5"
     response = Unirest.delete("#{base_url}/products/#{input_id}")
     p "The product was deleted."
   end
+elsif user_input == "6"
+  p "Add a User"
+  input_name = prompt.ask("Please enter your name:")
+  input_email = prompt.ask("Please enter your email:")
+  input_password = prompt.mask("Please enter a password:")
+  input_password_confirmation = prompt.mask("Please confirm password:")
+
+  response = Unirest.post("#{base_url}/users", parameters: {name: input_name, email: input_email, password: input_password, password_confirmation: input_password_confirmation})
+  p response.body
 
 end

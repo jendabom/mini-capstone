@@ -1,4 +1,7 @@
 class Product < ApplicationRecord
+  belongs_to :supplier
+  has_many :image
+
   validates :name, presence: true 
   validates :name, length: { maximum: 30}
   validates :price, presence: true 
@@ -13,7 +16,8 @@ class Product < ApplicationRecord
       description: description,
       discounted: is_discounted?, 
       total: total,
-      supplier: supplier.as_json
+      supplier: supplier.as_json,
+      image: image.as_json
     }
   end
 
@@ -28,9 +32,5 @@ class Product < ApplicationRecord
   def total
     sum = price + tax
     sum.round(2)
-  end
-
-  def supplier
-    Supplier.find_by(id: supplier_id)
   end
 end
