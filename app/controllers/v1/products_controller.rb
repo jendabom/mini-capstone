@@ -1,4 +1,6 @@
 class V1::ProductsController < ApplicationController
+  before_action :authenticate_user
+  
   def index
     search_term = params[:search]
     products = Product.order(id: :asc).where("name LIKE ?", "%#{search_term}%")

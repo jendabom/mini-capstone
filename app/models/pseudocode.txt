@@ -1,0 +1,10 @@
+# To have the user be able to purchase a product. 
+
+# Make sure quantity of product is set. (So that there is inventory to purchase)
+
+# When a product is "purchased" remove the purchase_amount from inventory. 
+# ie. If starting_inventory was 5 and an order comes in for 3. The new inventory is 2.
+
+# Write the purchase method in order. 
+
+# add the code in frontend to test it out. 
