@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
     post '/users' => 'users#create'
     post '/orders' => 'orders#create'
+    get '/orders' => 'orders#index'
 
     get '/categories' => 'categories#index'
   end

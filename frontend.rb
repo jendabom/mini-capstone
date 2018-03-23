@@ -15,6 +15,7 @@ while true
   p "[7] Login"
   p "[8] Logout"
   p "[9] Make an Order"
+  p "[10] See all Orders"
   user_input = gets.chomp
 
   # show a specified product
@@ -145,6 +146,7 @@ while true
   elsif user_input == "8"
     jwt = ""
     Unirest.clear_default_headers()
+    
   elsif user_input == "9"
     input_product_id = prompt.ask("Please enter the Product Id:")
     input_quantity = prompt.ask("Please enter the Quantity purchased:")
@@ -152,5 +154,11 @@ while true
     response = Unirest.post("#{base_url}/orders", parameters: {product_id: input_product_id, quantity: input_quantity})
 
     p response.body
+
+  elsif user_input == "10"
+    system "clear"
+    all_response = Unirest.get("#{base_url}/orders")
+    orders = all_response.body
+    puts JSON.pretty_generate(orders)
   end
 end
