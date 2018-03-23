@@ -2,6 +2,8 @@ class Product < ApplicationRecord
   belongs_to :supplier
   has_many :images
   has_many :orders
+  has_many :categoryProducts
+  has_many :categories, through: :categoryProducts
 
   validates :name, presence: true 
   validates :name, length: { maximum: 30}
@@ -18,7 +20,8 @@ class Product < ApplicationRecord
       discounted: is_discounted?, 
       total: total,
       supplier: supplier.as_json,
-      image: image.as_json
+      #image: image.as_json,
+      categories: categories.as_json
     }
   end
 

@@ -1,5 +1,5 @@
 class V1::ProductsController < ApplicationController
-  before_action :authenticate_user
+  before_action :authenticate_admin
   
   def index
     search_term = params[:search]
@@ -47,5 +47,4 @@ class V1::ProductsController < ApplicationController
     product.destroy
     render json: {message: "The product with id #{id} has been deleted."}
   end
-
 end
