@@ -17,6 +17,7 @@ while true
   p "[9] Make an Order"
   p "[10] See all Orders"
   p "[11] Carted Product"
+  p "[12] View Shopping Cart"
   user_input = gets.chomp
 
   # show a specified product
@@ -129,7 +130,7 @@ while true
 
   elsif user_input == "7"
     input_email = prompt.ask("Please enter your email:")
-    input_password = prompt.ask("Please enter your password:")
+    input_password = prompt.mask("Please enter your password:")
     response = Unirest.post(
       "http://localhost:3000/user_token",
       parameters: {
@@ -168,5 +169,11 @@ while true
     all_response = Unirest.post("#{base_url}/carted_products", parameters: { product_id: 3, quantity: 2})
     orders = all_response.body
     puts JSON.pretty_generate(orders)
+
+  elsif user_input == "12"
+    system "clear"
+    all_response = Unirest.get("#{base_url}/carted_products")
+    carted_products = all_response.body
+    puts JSON.pretty_generate(carted_products)
   end
 end
