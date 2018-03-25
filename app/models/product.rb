@@ -1,9 +1,11 @@
 class Product < ApplicationRecord
   belongs_to :supplier
   has_many :images
-  has_many :orders
   has_many :categoryProducts
   has_many :categories, through: :categoryProducts
+
+  has_many :carted_products
+  has_many :orders, :through => :carted_products
 
   validates :name, presence: true 
   validates :name, length: { maximum: 30}

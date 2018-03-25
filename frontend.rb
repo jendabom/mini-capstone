@@ -16,6 +16,7 @@ while true
   p "[8] Logout"
   p "[9] Make an Order"
   p "[10] See all Orders"
+  p "[11] Carted Product"
   user_input = gets.chomp
 
   # show a specified product
@@ -158,6 +159,13 @@ while true
   elsif user_input == "10"
     system "clear"
     all_response = Unirest.get("#{base_url}/orders")
+    orders = all_response.body
+    puts JSON.pretty_generate(orders)
+
+  elsif user_input == "11"
+    system "clear"
+
+    all_response = Unirest.post("#{base_url}/carted_products", parameters: { product_id: 3, quantity: 2})
     orders = all_response.body
     puts JSON.pretty_generate(orders)
   end
