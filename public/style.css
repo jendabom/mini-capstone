@@ -1,0 +1,13 @@
+body{
+  font-style: Verdana, sans-serif;
+  background-image: url("spiration_dark.png");
+  color: white;
+}
+
+.inner{
+  background-color: gray;
+  height: 300px;
+  margin: 5px;
+  align-content: center;
+  overflow-y: scroll;
+}
