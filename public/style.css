@@ -5,9 +5,10 @@ body{
 }
 
 .inner{
-  background-color: gray;
+  background-color: #415472;
   height: 300px;
   margin: 5px;
   align-content: center;
   overflow-y: scroll;
+  padding: 5px;
 }
